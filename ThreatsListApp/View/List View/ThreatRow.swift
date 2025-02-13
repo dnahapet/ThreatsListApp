@@ -10,17 +10,20 @@ import SwiftUI
 struct ThreatRow: View {
     let threat: Threat
         
-    var threatStatus: String {
+    var threatStatusColor: Color {
         switch threat.urlStatus {
-        case "online": return "🟢"
-        case "offline": return "🔴"
-        default: return "🟡"
+        case "online": return .green
+        case "offline": return .red
+        default: return .orange
         }
     }
     
     var body: some View {
         HStack {
-            Text(threatStatus)
+            Circle()
+                .fill(threatStatusColor)
+                .frame(width: 16, height: 16)
+            Spacer()
             VStack(alignment: .leading) {
                 Text(threat.threat)
                     .font(.headline)

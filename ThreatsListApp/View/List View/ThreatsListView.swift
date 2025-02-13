@@ -12,22 +12,28 @@ struct ThreatsListView: View {
     
     var body: some View {
         NavigationView {
-            VStack {
-                VStack {
-                    Text("Last Scan: \(viewModel.lastScanDate)")
-                        .font(.headline)
-                    
-                    Button(action: viewModel.loadThreats) {
+            VStack(alignment: .leading, spacing: 16) {
+                VStack(alignment: .leading, spacing: 16) {
+                    Text("Device at high risk!")
+                        .font(.title2)
+                        .fontWeight(.bold)
+                        .foregroundColor(.white)
+                    Text("Last scan - \(viewModel.lastScanDate)")
+                        .foregroundColor(.white)
+                    Button(action: {
+                        viewModel.loadThreats()
+                    }) {
                         Text("Start Scan")
-                            .font(.headline)
-                            .foregroundColor(.white)
+                            .fontWeight(.bold)
                             .padding()
-                            .background(Color.orange)
+                            .background(Color.red)
+                            .foregroundColor(.white)
                             .cornerRadius(20)
                     }
-                    .padding(.horizontal)
                 }
                 .padding()
+                .background(Color.orange)
+                .cornerRadius(12)
                 
                 if viewModel.isLoading {
                     ProgressView("Scanning...")
@@ -42,6 +48,7 @@ struct ThreatsListView: View {
                             ThreatRow(threat: threat)
                         }
                     }
+                    .listStyle(.plain)
                 }
             }
             .toolbar {
